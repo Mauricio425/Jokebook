@@ -1,6 +1,6 @@
-// public/js/app.js
 
-// Helper function: Render a random joke into the DOM
+
+//random joke
 async function loadRandomJoke() {
     try {
       const res = await fetch('/jokebook/random');
@@ -17,7 +17,7 @@ async function loadRandomJoke() {
     }
   }
   
-  // Helper function: Load categories and display them as buttons
+  //Load categories
   async function loadCategories() {
     try {
       const res = await fetch('/jokebook/categories');
@@ -41,7 +41,7 @@ async function loadRandomJoke() {
     }
   }
   
-  // Helper function: Load jokes for a given category and display them
+  //Load jokes for category
   async function loadJokesByCategory(category) {
     try {
       const res = await fetch(`/jokebook/joke/${category}`);
@@ -63,13 +63,13 @@ async function loadRandomJoke() {
     }
   }
   
-  // Event listener for refresh random joke button
+  // refresh random joke button listener
   document.getElementById('refresh-random').addEventListener('click', loadRandomJoke);
   
-  // Event listener for Load Categories button
+  // Load Categories button lsitener
   document.getElementById('load-categories').addEventListener('click', loadCategories);
   
-  // Event listener for Search Form submission
+  // Search Form submission listener
   document.getElementById('search-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const category = document.getElementById('search-category').value.trim();
@@ -78,7 +78,7 @@ async function loadRandomJoke() {
     }
   });
   
-  // Event listener for Add New Joke Form submission
+  // Add New Joke Form submission
   document.getElementById('add-joke-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const category = document.getElementById('new-category').value.trim();
@@ -98,14 +98,14 @@ async function loadRandomJoke() {
       });
       const data = await res.json();
       if (data.success) {
-        // Provide feedback by reloading the jokes for the category
+
         document.getElementById('new-joke-feedback').innerHTML = `<h3>Updated jokes in ${category}</h3>`;
         data.data.forEach(joke => {
           const p = document.createElement('p');
           p.textContent = `${joke.setup} — ${joke.delivery}`;
           document.getElementById('new-joke-feedback').appendChild(p);
         });
-        // Optionally, clear the form fields
+        
         e.target.reset();
       } else {
         document.getElementById('new-joke-feedback').textContent = data.message;
@@ -116,6 +116,6 @@ async function loadRandomJoke() {
     }
   });
   
-  // Initial load: fetch and display a random joke when the page loads
+  // Initial load
   loadRandomJoke();
   
